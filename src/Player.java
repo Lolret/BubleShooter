@@ -8,6 +8,8 @@ public class Player {
     public static int speed;
     public static double speedBoostValue;
 
+    private double dx; //Коэффициент смещения
+    private double dy;
 
     private Color color1;
     private Color color2;
@@ -29,6 +31,7 @@ public class Player {
         y = GamePanel.HEIGHT/2;
         playerRadius = 5;
         speed = 3;
+        dx = dy = 0;
         speedBoostValue = 1.5;
         color1 = new Color(0x00_ff_ff_ff);
         color2 = new Color(0x01_5f_5f_0f);
@@ -38,34 +41,48 @@ public class Player {
     //Functions
     public void update(){
         if (speedUp) {
-            if (up && x > playerRadius) {
+            if (up && y > playerRadius) {
 
-                y -=speed*speedBoostValue;
+                dy -=speed*speedBoostValue;
             }
-            if (down && x < GamePanel.HEIGHT - playerRadius) {
-                y +=speed*speedBoostValue;
+            if (down && y < GamePanel.HEIGHT - playerRadius) {
+                dy +=speed*speedBoostValue;
             }
             if (left && x > playerRadius) {
-                x -=speed*speedBoostValue;
+                dx -=speed*speedBoostValue;
             }
             if (right && x < GamePanel.WIDTH - playerRadius) {
-                x +=speed*speedBoostValue;
+                dx +=speed*speedBoostValue;
             }
+            if (up && left || up && right || down && left || down && right){
+                dy = dy*Math.sin(45)*speedBoostValue;
+                dx = dx*Math.cos(45)*speedBoostValue;
+            }
+            y += dy;
+            x += dx;
+            dx = dy = 0;
         }
 
-        if (up && x > playerRadius) {
+        if (up && y > playerRadius) {
 
-            y -=speed;
+            dy -=speed;
         }
-        if (down && x < GamePanel.HEIGHT - playerRadius) {
-            y +=speed;
+        if (down && y < GamePanel.HEIGHT - playerRadius) {
+            dy +=speed;
         }
         if (left && x > playerRadius) {
-            x -=speed;
+            dx -=speed;
         }
         if (right && x < GamePanel.WIDTH - playerRadius) {
-            x +=speed;
+            dx +=speed;
         }
+        if (up && left || up && right || down && left || down && right){
+            dy = dy*Math.sin(45);
+            dx = dx*Math.cos(45);
+        }
+        y += dy;
+        x += dx;
+        dx = dy = 0;
     }
 
     public void draw(Graphics2D g){
