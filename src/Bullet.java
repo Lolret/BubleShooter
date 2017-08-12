@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Bullet {
     //Fields
@@ -13,8 +14,8 @@ public class Bullet {
     public Bullet() {
         this.x = GamePanel.player.getX();
         this.y = GamePanel.player.getY();
-        this.r = 2;
-        this.color = Color.BLACK;
+        this.r = 1+ new Random().nextInt(2);
+        this.color = new Color(0x76B219);
         this.speed = 6;
     }
 

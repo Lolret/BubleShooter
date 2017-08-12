@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Graphics2D g;
 
     public static GameBack background;
-    private Color BACKGROUND_COLOR = new Color(0x01_00_00_ff);
+    private Color BACKGROUND_COLOR = new Color(0x0000A7);
     public static Player player;
     public static ArrayList<Bullet> bullets;
     Listeners listeners =  new Listeners();
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
             gameRender();
             gameDraw();
             try {
-                tread.sleep(33); //TODO FPS
+                tread.sleep(20); //TODO FPS
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

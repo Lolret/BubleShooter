@@ -14,7 +14,7 @@ public class Player {
     private double x;
     private double y;
     private int playerRadius;
-    public static int speed;
+    public static double speed;
     public static double speedBoostValue;
 
     private double dx; //Коэффициент смещения
@@ -38,8 +38,8 @@ public class Player {
     public Player(/*double x, double y, int playerRadius, Color color1, Color color2*/) {
         x = GamePanel.WIDTH/2;
         y = GamePanel.HEIGHT/2;
-        playerRadius = 5;
-        speed = 3;
+        playerRadius = 8;
+        speed = 2.2;
         dx = dy = 0;
         speedBoostValue = 1.5;
         color1 = new Color(0x00_ff_ff_ff);
