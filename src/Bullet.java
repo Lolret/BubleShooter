@@ -8,7 +8,7 @@ public class Bullet {
     private int r;
     private Color color;
 
-    private int speed;
+    private double speed;
     static int bulletFireDelay = 50;
     static long lastBulletTime;
 
@@ -16,9 +16,9 @@ public class Bullet {
     public Bullet() {
         this.x = GamePanel.player.getX();
         this.y = GamePanel.player.getY();
-        this.r = 1+ new Random().nextInt(2);
+        this.r = 3+ new Random().nextInt(2);
         this.color = new Color(0x76B219);
-        this.speed = 6;
+        this.speed = 4+ new Random().nextDouble();
         lastBulletTime = System.currentTimeMillis();
     }
 

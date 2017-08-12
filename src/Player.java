@@ -43,7 +43,7 @@ public class Player {
         dx = dy = 0;
         speedBoostValue = 1.5;
         color1 = new Color(0x00_ff_ff_ff);
-        color2 = new Color(0x01_5f_5f_0f);
+        color2 = new Color(0x912E3D);
         up = down = left = right = false;
     }
 

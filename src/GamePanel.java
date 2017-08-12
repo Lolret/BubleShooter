@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Graphics2D g;
 
     public static GameBack background;
-    private Color BACKGROUND_COLOR = new Color(0x0000A7);
+    private Color BACKGROUND_COLOR = new Color(0x3A46A7);
     public static Player player;
     public static ArrayList<Bullet> bullets;
     Listeners listeners =  new Listeners();
