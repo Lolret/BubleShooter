@@ -95,7 +95,7 @@ public class Player {
         x += dx;
         dx = dy = 0;
 
-        if (isFiring){
+        if (isFiring && System.currentTimeMillis() -Bullet.lastBulletTime > Bullet.bulletFireDelay){
             GamePanel.bullets.add(new Bullet());
         }
     }

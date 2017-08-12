@@ -47,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable{
         background = new GameBack(BACKGROUND_COLOR);
         player = new Player();
         bullets = new ArrayList<>();
+        String name = g.getClass().getName();
+        System.out.println(System.currentTimeMillis());
 
         while (true){
             //TODO States

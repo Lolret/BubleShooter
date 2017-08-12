@@ -9,6 +9,8 @@ public class Bullet {
     private Color color;
 
     private int speed;
+    static int bulletFireDelay = 50;
+    static long lastBulletTime;
 
     //Constructor
     public Bullet() {
@@ -17,6 +19,7 @@ public class Bullet {
         this.r = 1+ new Random().nextInt(2);
         this.color = new Color(0x76B219);
         this.speed = 6;
+        lastBulletTime = System.currentTimeMillis();
     }
 
     //Functions
