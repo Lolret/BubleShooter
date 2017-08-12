@@ -1,6 +1,15 @@
 import java.awt.*;
+import java.util.Map;
 
 public class Player {
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
     //Fields
     private double x;
     private double y;
@@ -19,7 +28,7 @@ public class Player {
     public static boolean left;
     public static boolean right;
     public static boolean speedUp;
-
+    public static boolean isFiring;
 
 
 
@@ -55,12 +64,11 @@ public class Player {
                 dx +=speed*speedBoostValue;
             }
             if (up && left || up && right || down && left || down && right){
-                dy = dy*Math.sin(45)*speedBoostValue;
-                dx = dx*Math.cos(45)*speedBoostValue;
+                double angle = Math.toRadians(45);
+                dy = dy*Math.cos(angle);
+                dx = dx*Math.cos(angle);
             }
-            y += dy;
-            x += dx;
-            dx = dy = 0;
+
         }
 
         if (up && y > playerRadius) {
@@ -77,12 +85,19 @@ public class Player {
             dx +=speed;
         }
         if (up && left || up && right || down && left || down && right){
-            dy = dy*Math.sin(45);
-            dx = dx*Math.cos(45);
+            double angle = Math.toRadians(45);
+            dy = dy*Math.cos(angle);
+            dx = dx*Math.cos(angle);
+
+
         }
         y += dy;
         x += dx;
         dx = dy = 0;
+
+        if (isFiring){
+            GamePanel.bullets.add(new Bullet());
+        }
     }
 
     public void draw(Graphics2D g){

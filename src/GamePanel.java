@@ -1,10 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.*;
 
-/**
- * Created by alexv on 11.08.2017.
- */
+
 public class GamePanel extends JPanel implements Runnable{
 
     //Field
@@ -19,6 +18,8 @@ public class GamePanel extends JPanel implements Runnable{
     public static GameBack background;
     private Color BACKGROUND_COLOR = new Color(0x01_00_00_ff);
     public static Player player;
+    public static ArrayList<Bullet> bullets;
+    Listeners listeners =  new Listeners();
 
     //Constructor
     public GamePanel(){
@@ -27,7 +28,8 @@ public class GamePanel extends JPanel implements Runnable{
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setFocusable(true);
         requestFocus();
-        addKeyListener(new Listeners());
+        addKeyListener(listeners);
+        addMouseListener(listeners);
     }
 
     //Functions
@@ -44,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         background = new GameBack(BACKGROUND_COLOR);
         player = new Player();
+        bullets = new ArrayList<>();
 
         while (true){
             //TODO States
@@ -64,13 +67,20 @@ public class GamePanel extends JPanel implements Runnable{
         background.update();
         //Player update
         player.update();
-
+        //Bullets update
+        for (Bullet b: new ArrayList<>(bullets)) {
+            b.update();
+            if (b.remove()) bullets.remove(b);
+        }
     }
 
     public void gameRender(){
         //TODO Renderings
         background.draw(g);
         player.draw(g);
+        for (Bullet b:bullets){
+            b.draw(g);
+        }
     }
 
     private void gameDraw(){

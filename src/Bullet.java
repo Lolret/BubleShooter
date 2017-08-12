@@ -27,4 +27,9 @@ public class Bullet {
         g.setColor(color);
         g.fillOval((int)x,(int)y, r, 2*r);
     }
+
+    public boolean remove(){
+        return y < 0;
+    }
+
 }
