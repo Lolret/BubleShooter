@@ -23,13 +23,19 @@ public class Bullet {
     }
 
     //Functions
+
+    public double getX() {return x;}
+    public double getY() {return y;}
+    public double getRadius() {return r;}
+
+
     public void update(){
         y -=speed;
     }
 
     public void draw(Graphics2D g){
         g.setColor(color);
-        g.fillOval((int)x,(int)y, r, 3*r);
+        g.fillOval((int)x,(int)y, 2*r, 2*r);
     }
 
     public boolean remove(){

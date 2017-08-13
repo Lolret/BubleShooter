@@ -4,6 +4,13 @@ import java.util.Random;
 public class Enemy {
     //Fields
     private double x;
+
+    public double getX() {return x;}
+    public double getY() {return y;}
+    public double getRadius() {return enemyRadius;}
+    public double getEnemyHealth() {return enemyHealth;}
+
+
     private double y;
     private int enemyRadius;
     private Color enemyColor;
@@ -26,7 +33,8 @@ public class Enemy {
                     x = Math.random()*GamePanel.WIDTH;
                     y = 0;
                     speed = 2;
-                    enemyRadius = 7;
+                    enemyRadius = 10;
+                    enemyHealth = 6;
                     double angle = Math.toRadians(Math.random()*360);
                     dx = Math.sin(angle)*speed;
                     dy = Math.cos(angle)*speed;
@@ -39,6 +47,10 @@ public class Enemy {
     //Constructor
 
     //Functions
+    public void hit(){
+        enemyHealth--;
+    }
+
     public void update(){
         x += dx;
         y += dy;
@@ -56,9 +68,9 @@ public class Enemy {
         g.setStroke(new BasicStroke(3));
         g.setColor(enemyColor.darker());
         g.drawOval((int)x-enemyRadius, (int)y - enemyRadius, enemyRadius*2, enemyRadius*2);
-        g.setStroke(new BasicStroke(3));
+        g.setStroke(new BasicStroke(1));
     }
     public boolean remove(){
-        return y > GamePanel.HEIGHT;
+        return enemyHealth <= 0;
     }
 }

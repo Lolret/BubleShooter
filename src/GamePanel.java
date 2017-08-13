@@ -51,6 +51,11 @@ public class GamePanel extends JPanel implements Runnable{
         enemies = new ArrayList<>();
         enemies.add(new Enemy(1,1));
         enemies.add(new Enemy(1,1));
+        enemies.add(new Enemy(1,1));
+        enemies.add(new Enemy(1,1));
+        enemies.add(new Enemy(1,1));
+
+
 
         while (true){
             //TODO States
@@ -80,6 +85,27 @@ public class GamePanel extends JPanel implements Runnable{
         for (Enemy e: new ArrayList<>(enemies)) {
             e.update();
             if (e.remove()) bullets.remove(e);
+        }
+        //Bullets-enemies collide
+        for (Enemy e: new ArrayList<>(enemies)){
+            double ex = e.getX();
+            double ey = e.getY();
+
+            for (Bullet b: new ArrayList<>(bullets)){
+                double bx = b.getX();
+                double by = b.getY();
+                double dx = ex - bx;
+                double dy = ey - by;
+                double dist = Math.sqrt(dx * dx + dy * dy);
+                if ((int)dist < b.getRadius()+ e.getRadius()){
+                    e.hit();
+                    bullets.remove(b);
+                }
+            }
+            if (e.remove()) {
+                enemies.remove(e);
+                enemies.add(new Enemy(1,1));
+            }
         }
     }
 
