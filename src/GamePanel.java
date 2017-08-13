@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static ArrayList<Bullet> bullets;
     public static ArrayList<Enemy> enemies;
     Listeners listeners =  new Listeners();
+    long startTime = System.currentTimeMillis();
 
     //Constructor
     public GamePanel(){
@@ -49,11 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
         player = new Player();
         bullets = new ArrayList<>();
         enemies = new ArrayList<>();
-        enemies.add(new Enemy(1,1));
-        enemies.add(new Enemy(1,1));
-        enemies.add(new Enemy(1,1));
-        enemies.add(new Enemy(1,1));
-        enemies.add(new Enemy(1,1));
+        for (int i=0; i< 10; i ++) enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
+        startTime = System.currentTimeMillis();
 
 
 
@@ -104,8 +102,12 @@ public class GamePanel extends JPanel implements Runnable{
             }
             if (e.remove()) {
                 enemies.remove(e);
-                enemies.add(new Enemy(1,1));
+                enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
             }
+        }
+        if ((int)(System.currentTimeMillis() - startTime) / 5000 > 0) {
+            enemies.add(new Enemy(1, 1 + (int) (Math.random() * 4)));
+            startTime = System.currentTimeMillis();
         }
     }
 

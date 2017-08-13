@@ -9,14 +9,14 @@ public class Bullet {
     private Color color;
 
     private double speed;
-    static int bulletFireDelay = 50;
+    static int bulletFireDelay = 10;
     static long lastBulletTime;
 
     //Constructor
     public Bullet() {
         this.x = GamePanel.player.getX();
         this.y = GamePanel.player.getY();
-        this.r = 3+ new Random().nextInt(2);
+        this.r = 5;
         this.color = new Color(0x76B219);
         this.speed = 4.5+ Math.random()*0.5;
         lastBulletTime = System.currentTimeMillis();

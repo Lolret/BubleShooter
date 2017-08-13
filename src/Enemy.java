@@ -27,20 +27,56 @@ public class Enemy {
 
         switch (enemyType){
             case 1:
-                enemyColor = Color.ORANGE;
                 switch (enemyRank){
-                case 1:
-                    x = Math.random()*GamePanel.WIDTH;
-                    y = 0;
-                    speed = 2;
-                    enemyRadius = 10;
-                    enemyHealth = 6;
-                    double angle = Math.toRadians(Math.random()*360);
-                    dx = Math.sin(angle)*speed;
-                    dy = Math.cos(angle)*speed;
-
-
-            }
+                    case 1: {
+                        enemyColor = Color.ORANGE;
+                        x = Math.random() * GamePanel.WIDTH;
+                        y = 0;
+                        speed = 2;
+                        enemyRadius = 7;
+                        enemyHealth = 3;
+                        double angle = Math.toRadians(Math.random() * 360);
+                        dx = Math.sin(angle) * speed;
+                        dy = Math.cos(angle) * speed;
+                        break;
+                    }
+                    case 2: {
+                        enemyColor = Color.ORANGE.darker();
+                        x = Math.random() * GamePanel.WIDTH;
+                        y = 0;
+                        speed = 4;
+                        enemyRadius = 10;
+                        enemyHealth = 5;
+                        double angle = Math.toRadians(Math.random() * 360);
+                        dx = Math.sin(angle) * speed;
+                        dy = Math.cos(angle) * speed;
+                        break;
+                    }
+                    case 3: {
+                        enemyColor = Color.ORANGE.darker().darker();
+                        x = Math.random() * GamePanel.WIDTH;
+                        y = 0;
+                        speed = 4;
+                        enemyRadius = 13;
+                        enemyHealth = 7;
+                        double angle = Math.toRadians(Math.random() * 360);
+                        dx = Math.sin(angle) * speed;
+                        dy = Math.cos(angle) * speed;
+                        break;
+                    }
+                    case 4: {
+                        enemyColor = Color.RED;
+                        x = Math.random() * GamePanel.WIDTH;
+                        y = 0;
+                        speed = 5;
+                        enemyRadius = 10;
+                        enemyHealth = 4;
+                        double angle = Math.toRadians(Math.random() * 360);
+                        dx = Math.sin(angle) * speed;
+                        dy = Math.cos(angle) * speed;
+                        break;
+                    }
+                }
         }
 
     }
