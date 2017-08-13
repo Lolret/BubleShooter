@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static ArrayList<Enemy> enemies;
     Listeners listeners =  new Listeners();
     long startTime = System.currentTimeMillis();
+    public static int score;
 
     //Constructor
     public GamePanel(){
@@ -52,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
         enemies = new ArrayList<>();
         for (int i=0; i< 10; i ++) enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
         startTime = System.currentTimeMillis();
+
 
 
 
@@ -101,7 +103,9 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             if (e.remove()) {
+                score += (int)(e.getRadius());
                 enemies.remove(e);
+
                 enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
             }
         }
