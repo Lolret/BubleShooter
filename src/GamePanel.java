@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Color BACKGROUND_COLOR = new Color(0x3A46A7);
     public static Player player;
     public static ArrayList<Bullet> bullets;
+    public static ArrayList<Enemy> enemies;
     Listeners listeners =  new Listeners();
 
     //Constructor
@@ -47,8 +48,9 @@ public class GamePanel extends JPanel implements Runnable{
         background = new GameBack(BACKGROUND_COLOR);
         player = new Player();
         bullets = new ArrayList<>();
-        String name = g.getClass().getName();
-        System.out.println(System.currentTimeMillis());
+        enemies = new ArrayList<>();
+        enemies.add(new Enemy(1,1));
+        enemies.add(new Enemy(1,1));
 
         while (true){
             //TODO States
@@ -74,6 +76,11 @@ public class GamePanel extends JPanel implements Runnable{
             b.update();
             if (b.remove()) bullets.remove(b);
         }
+        //Enemies update
+        for (Enemy e: new ArrayList<>(enemies)) {
+            e.update();
+            if (e.remove()) bullets.remove(e);
+        }
     }
 
     public void gameRender(){
@@ -83,10 +90,13 @@ public class GamePanel extends JPanel implements Runnable{
         for (Bullet b:bullets){
             b.draw(g);
         }
+        for (Enemy e:enemies){
+            e.draw(g);
+        }
     }
 
     private void gameDraw(){
-        Graphics g2 = this.getGraphics();
+        Graphics g2 =this.getGraphics();
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
     }
