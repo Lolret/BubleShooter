@@ -24,7 +24,7 @@ public class Listeners implements KeyListener, MouseListener {
         if (key  == KeyEvent.VK_S) Player.down = true;
         if (key  == KeyEvent.VK_A) Player.left = true;
         if (key  == KeyEvent.VK_D) Player.right = true;
-        if (key  == KeyEvent.VK_SPACE) Player.speedUp = true;
+        if (key  == KeyEvent.VK_SPACE) Player.isSpeedUp = true;
         if (key  == KeyEvent.VK_E) Player.isFiring = true;
 
     }
@@ -36,7 +36,7 @@ public class Listeners implements KeyListener, MouseListener {
         if (key  == KeyEvent.VK_S) Player.down = false;
         if (key  == KeyEvent.VK_A) Player.left = false;
         if (key  == KeyEvent.VK_D) Player.right = false;
-        if (key  == KeyEvent.VK_SPACE) Player.speedUp = false;
+        if (key  == KeyEvent.VK_SPACE) Player.isSpeedUp = false;
         if (key  == KeyEvent.VK_E) Player.isFiring = false;
     }
 

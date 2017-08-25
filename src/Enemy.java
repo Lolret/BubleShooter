@@ -55,7 +55,7 @@ public class Enemy {
                         enemyColor = Color.ORANGE.darker().darker();
                         x = Math.random() * GamePanel.WIDTH;
                         y = 0;
-                        speed = 4;
+                        speed = 1;
                         enemyRadius = 13;
                         enemyHealth = 7;
                         double angle = Math.toRadians(Math.random() * 360);
@@ -67,9 +67,9 @@ public class Enemy {
                         enemyColor = Color.RED;
                         x = Math.random() * GamePanel.WIDTH;
                         y = 0;
-                        speed = 5;
-                        enemyRadius = 10;
-                        enemyHealth = 4;
+                        speed = 0.5;
+                        enemyRadius = 16;
+                        enemyHealth = 9;
                         double angle = Math.toRadians(Math.random() * 360);
                         dx = Math.sin(angle) * speed;
                         dy = Math.cos(angle) * speed;
@@ -105,6 +105,11 @@ public class Enemy {
         g.setColor(enemyColor.darker());
         g.drawOval((int)x-enemyRadius, (int)y - enemyRadius, enemyRadius*2, enemyRadius*2);
         g.setStroke(new BasicStroke(1));
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("consolas", Font.BOLD, 20));
+        g.drawString(Integer.toString(GamePanel.score), GamePanel.WIDTH - 50, 20);
+        g.drawString(Integer.toString(GamePanel.player.getHealth()), 60, 20);
+
     }
     private void remove(){
         GamePanel.score += (int) (getRadius());

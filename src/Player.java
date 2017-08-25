@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Map;
 
 public class Player {
     public double getX() {
@@ -17,6 +16,8 @@ public class Player {
     public static double speed;
     public static double speedBoostValue;
     private int health;
+    private int boostFuel;
+    private int maxBoostFuel;
 
     private double dx; //Коэффициент смещения
     private double dy;
@@ -28,7 +29,7 @@ public class Player {
     public static boolean down;
     public static boolean left;
     public static boolean right;
-    public static boolean speedUp;
+    public static boolean isSpeedUp;
     public static boolean isFiring;
 
 
@@ -45,6 +46,8 @@ public class Player {
         color1 = new Color(0x00_ff_ff_ff);
         color2 = new Color(0x912E3D);
         up = down = left = right = false;
+        boostFuel = 200;
+        maxBoostFuel = 200;
     }
 
     //Functions
@@ -60,9 +63,18 @@ public class Player {
         return --health;
     }
 
+    public int getBoostFuel() {
+        return boostFuel;
+    }
+
+    public int getMaxBoostFuel() {
+        return maxBoostFuel;
+    }
+
+
 
     public void update(){
-        if (speedUp) {
+        if (getBoostFuel() > 0 && isSpeedUp) {
             if (up && y > playerRadius) {
 
                 dy -=speed*speedBoostValue;
@@ -81,7 +93,7 @@ public class Player {
                 dy = dy*Math.cos(angle);
                 dx = dx*Math.cos(angle);
             }
-
+            boostFuel -=2;
         }
 
         if (up && y > playerRadius) {
@@ -111,6 +123,7 @@ public class Player {
         if (isFiring && System.currentTimeMillis() -Bullet.lastBulletTime > Bullet.bulletFireDelay){
             GamePanel.bullets.add(new Bullet());
         }
+        if (!isSpeedUp && boostFuel < maxBoostFuel)  boostFuel++;
     }
 
     public void draw(Graphics2D g){
@@ -120,5 +133,6 @@ public class Player {
         g.setStroke(new BasicStroke(3));
         g.setColor(color2);
         g.drawOval((int) (x-playerRadius),(int) (y-playerRadius), 2 * playerRadius,2 * playerRadius);
+
     }
 }

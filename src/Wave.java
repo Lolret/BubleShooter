@@ -46,7 +46,6 @@ public class Wave {
         int enemyCount = (waveNumber * waveNumber) * waveMultiplier;
         while (enemyCount > 0){
             int rank = new Random().nextInt(4) +1;
-            System.out.println(rank);
             int type = 1;
             GamePanel.enemies.add(new Enemy(type,rank));
             enemyCount -= type * rank;

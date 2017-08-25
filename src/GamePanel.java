@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
         wave = new Wave();
 
         startTime = System.currentTimeMillis();
-        while (true){
+        while (true && player.getHealth() > 0){
             //TODO States
             gameUpdate();
             gameRender();
@@ -125,6 +125,7 @@ public class GamePanel extends JPanel implements Runnable{
             e.draw(g);
         }
         if (wave.showWave()) wave.draw(g);
+
     }
 
     private void gameDraw(){
