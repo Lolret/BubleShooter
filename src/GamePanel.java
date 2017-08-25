@@ -6,24 +6,23 @@ import java.util.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    //Field
+    //Fields
     public static int WIDTH = 400;
     public static int HEIGHT = 400;
     private Thread tread;
-    //Переменная холста, на котором будем рисовать
-    private BufferedImage image;
-    //Наша кисточка (oO)
-    private Graphics2D g;
+    private BufferedImage image; //Переменная холста, на котором будем рисовать
+    private Graphics2D g; //Наша кисточка (oO)
 
     public static GameBack background;
-    private Color BACKGROUND_COLOR = new Color(0x3A46A7);
     public static Player player;
     public static ArrayList<Bullet> bullets;
     public static ArrayList<Enemy> enemies;
-    Listeners listeners =  new Listeners();
-    long startTime = System.currentTimeMillis();
     public static int score;
     public static Wave wave;
+
+    long startTime = System.currentTimeMillis();
+    private Color BACKGROUND_COLOR = new Color(0x3A46A7);
+    Listeners listeners =  new Listeners();
 
     //Constructor
     public GamePanel(){
@@ -52,7 +51,6 @@ public class GamePanel extends JPanel implements Runnable{
         bullets = new ArrayList<>();
         enemies = new ArrayList<>();
         wave = new Wave();
-
         startTime = System.currentTimeMillis();
         while (true && player.getHealth() > 0){
             //TODO States
@@ -61,32 +59,24 @@ public class GamePanel extends JPanel implements Runnable{
             gameDraw();
             try {
                 tread.sleep(20); //TODO FPS
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            } catch (InterruptedException e) {e.printStackTrace();}
         }
     }
 
     public void gameUpdate(){
         //TODO Updates objects
-        //Background update
         background.update();
-        //Player update
         player.update();
-        //Bullets update
         for (Bullet b: new ArrayList<>(bullets)) {
             b.update();
             if (b.remove()) bullets.remove(b);
         }
-        //Enemies update
         for (Enemy e: new ArrayList<>(enemies)) {
             e.update();
         }
-        //Bullets-enemies;enemies-player collides
         for (Enemy e: new ArrayList<>(enemies)) {
             double ex = e.getX();
             double ey = e.getY();
-            //Bullets-enemies collide
             for (Bullet b : new ArrayList<>(bullets)) {
                 double bx = b.getX();
                 double by = b.getY();
@@ -98,7 +88,6 @@ public class GamePanel extends JPanel implements Runnable{
                     bullets.remove(b);
                 }
             }
-            //enemies-player collide
             double px = player.getX();
             double py = player.getY();
             double dx = ex - px;
@@ -109,7 +98,6 @@ public class GamePanel extends JPanel implements Runnable{
                 player.hit();
                 if (player.getHealth() <= 0) {}//TODO GameOver
             }
-
         }
         wave.update();
     }
@@ -118,14 +106,9 @@ public class GamePanel extends JPanel implements Runnable{
         //TODO Renderings
         background.draw(g);
         player.draw(g);
-        for (Bullet b:bullets){
-            b.draw(g);
-        }
-        for (Enemy e:enemies){
-            e.draw(g);
-        }
+        for (Bullet b:bullets) {b.draw(g);}
+        for (Enemy e:enemies) {e.draw(g);}
         if (wave.showWave()) wave.draw(g);
-
     }
 
     private void gameDraw(){

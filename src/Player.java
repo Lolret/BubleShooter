@@ -1,27 +1,19 @@
 import java.awt.*;
 
 public class Player {
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
 
     //Fields
+    public static double speed;
+    public static double speedBoostValue;
+
     private double x;
     private double y;
     private int playerRadius;
-    public static double speed;
-    public static double speedBoostValue;
     private int health;
     private int boostFuel;
     private int maxBoostFuel;
-
     private double dx; //Коэффициент смещения
     private double dy;
-
     private Color color1;
     private Color color2;
 
@@ -31,8 +23,6 @@ public class Player {
     public static boolean right;
     public static boolean isSpeedUp;
     public static boolean isFiring;
-
-
 
     //Constructor
     public Player(/*double x, double y, int playerRadius, Color color1, Color color2*/) {
@@ -49,45 +39,26 @@ public class Player {
         boostFuel = 200;
         maxBoostFuel = 200;
     }
-
     //Functions
+    public double getX() {return x;}
+    public double getY() {
+        return y;
+    }
     public int getPlayerRadius(){
         return playerRadius;
     }
+    public int getHealth() {return health;}
+    public int getBoostFuel() {return boostFuel;}
+    public int getMaxBoostFuel() {return maxBoostFuel;}
 
-    public int getHealth() {
-        return health;
-    }
-
-    public int hit() {
-        return --health;
-    }
-
-    public int getBoostFuel() {
-        return boostFuel;
-    }
-
-    public int getMaxBoostFuel() {
-        return maxBoostFuel;
-    }
-
-
+    public int hit() {return --health;}
 
     public void update(){
         if (getBoostFuel() > 0 && isSpeedUp) {
-            if (up && y > playerRadius) {
-
-                dy -=speed*speedBoostValue;
-            }
-            if (down && y < GamePanel.HEIGHT - playerRadius) {
-                dy +=speed*speedBoostValue;
-            }
-            if (left && x > playerRadius) {
-                dx -=speed*speedBoostValue;
-            }
-            if (right && x < GamePanel.WIDTH - playerRadius) {
-                dx +=speed*speedBoostValue;
-            }
+            if (up && y > playerRadius) {dy -=speed*speedBoostValue;}
+            if (down && y < GamePanel.HEIGHT - playerRadius) {dy +=speed*speedBoostValue;}
+            if (left && x > playerRadius) {dx -=speed*speedBoostValue;}
+            if (right && x < GamePanel.WIDTH - playerRadius) {dx +=speed*speedBoostValue;}
             if (up && left || up && right || down && left || down && right){
                 double angle = Math.toRadians(45);
                 dy = dy*Math.cos(angle);
@@ -95,31 +66,18 @@ public class Player {
             }
             boostFuel -=2;
         }
-
-        if (up && y > playerRadius) {
-
-            dy -=speed;
-        }
-        if (down && y < GamePanel.HEIGHT - playerRadius) {
-            dy +=speed;
-        }
-        if (left && x > playerRadius) {
-            dx -=speed;
-        }
-        if (right && x < GamePanel.WIDTH - playerRadius) {
-            dx +=speed;
-        }
+        if (up && y > playerRadius) {dy -=speed;}
+        if (down && y < GamePanel.HEIGHT - playerRadius) {dy +=speed;}
+        if (left && x > playerRadius) {dx -=speed;}
+        if (right && x < GamePanel.WIDTH - playerRadius) {dx +=speed;}
         if (up && left || up && right || down && left || down && right){
             double angle = Math.toRadians(45);
             dy = dy*Math.cos(angle);
             dx = dx*Math.cos(angle);
-
-
         }
         y += dy;
         x += dx;
         dx = dy = 0;
-
         if (isFiring && System.currentTimeMillis() -Bullet.lastBulletTime > Bullet.bulletFireDelay){
             GamePanel.bullets.add(new Bullet());
         }
@@ -133,6 +91,5 @@ public class Player {
         g.setStroke(new BasicStroke(3));
         g.setColor(color2);
         g.drawOval((int) (x-playerRadius),(int) (y-playerRadius), 2 * playerRadius,2 * playerRadius);
-
     }
 }

@@ -3,37 +3,32 @@ import java.awt.*;
 public class Enemy {
     //Fields
     private double x;
-
-    public double getX() {return x;}
-    public double getY() {return y;}
-    public double getRadius() {return enemyRadius;}
-    public double getEnemyHealth() {return enemyHealth;}
-
-
     private double y;
+
     private int enemyRadius;
-    private Color enemyColor;
     private int enemyType;
     private int enemyRank;
     private double enemyHealth;
     private double speed;
     private double dx;
     private double dy;
+    private Color enemyColor;
 
+    //Constructor
     public Enemy(int enemyType, int enemyRank) {
         this.enemyType = enemyType;
         this.enemyRank = enemyRank;
 
-        switch (enemyType){
+        switch (this.enemyType){
             case 1:
-                switch (enemyRank){
+                switch (this.enemyRank){
                     case 1: {
                         enemyColor = Color.ORANGE;
                         x = Math.random() * GamePanel.WIDTH;
                         y = 0;
                         speed = 2;
                         enemyRadius = 7;
-                        enemyHealth = 3;
+                        enemyHealth = 8;
                         double angle = Math.toRadians(Math.random() * 360);
                         dx = Math.sin(angle) * speed;
                         dy = Math.cos(angle) * speed;
@@ -45,7 +40,7 @@ public class Enemy {
                         y = 0;
                         speed = 1.5;
                         enemyRadius = 10;
-                        enemyHealth = 5;
+                        enemyHealth = 16;
                         double angle = Math.toRadians(Math.random() * 360);
                         dx = Math.sin(angle) * speed;
                         dy = Math.cos(angle) * speed;
@@ -57,7 +52,7 @@ public class Enemy {
                         y = 0;
                         speed = 1;
                         enemyRadius = 13;
-                        enemyHealth = 7;
+                        enemyHealth = 32;
                         double angle = Math.toRadians(Math.random() * 360);
                         dx = Math.sin(angle) * speed;
                         dy = Math.cos(angle) * speed;
@@ -69,7 +64,7 @@ public class Enemy {
                         y = 0;
                         speed = 0.5;
                         enemyRadius = 16;
-                        enemyHealth = 9;
+                        enemyHealth = 64;
                         double angle = Math.toRadians(Math.random() * 360);
                         dx = Math.sin(angle) * speed;
                         dy = Math.cos(angle) * speed;
@@ -77,14 +72,17 @@ public class Enemy {
                     }
                 }
         }
-
     }
-    //Constructor
 
     //Functions
+    public double getX() {return x;}
+    public double getY() {return y;}
+    public double getRadius() {return enemyRadius;}
+    public double getEnemyHealth() {return enemyHealth;}
+
     public void hit(){
         enemyHealth--;
-        if (enemyHealth <= 0) remove();
+        if (getEnemyHealth() <= 0) remove();
     }
 
     public void update(){
@@ -94,8 +92,6 @@ public class Enemy {
         if (x > GamePanel.WIDTH && dx > 0) dx = -dx;
         if (y < 0 && dy <0)dy = -dy;
         if (y >= GamePanel.HEIGHT && dy > 0) dy = -dy;
-
-
     }
 
     public void draw(Graphics2D g){
@@ -109,8 +105,8 @@ public class Enemy {
         g.setFont(new Font("consolas", Font.BOLD, 20));
         g.drawString(Integer.toString(GamePanel.score), GamePanel.WIDTH - 50, 20);
         g.drawString(Integer.toString(GamePanel.player.getHealth()), 60, 20);
-
     }
+
     private void remove(){
         GamePanel.score += (int) (getRadius());
         GamePanel.enemies.remove(this);

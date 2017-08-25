@@ -8,10 +8,9 @@ public class GameBack {
     GameBack(Color color) {
         this.color = color;
     }
+
     //Functions
-    public void update(){
-       //TODO
-    }
+    public void update() {} //TODO
 
     public void draw(Graphics2D g){
         g.setFont(new Font("consolas", Font.BOLD, 20));
@@ -28,5 +27,4 @@ public class GameBack {
         int dx = (int)(40 + ((double)GamePanel.player.getBoostFuel()/(double)GamePanel.player.getMaxBoostFuel()*80));
         g.drawLine(dx,GamePanel.HEIGHT - 5,dx,GamePanel.HEIGHT - 15);
     }
-
 }

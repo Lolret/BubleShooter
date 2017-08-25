@@ -2,7 +2,6 @@ import java.awt.*;
 import java.util.Random;
 
 public class Wave {
-
     //Fields
     private int waveNumber;
     private int waveMultiplier;
@@ -12,7 +11,6 @@ public class Wave {
     private String waveText;
 
     //Constructor
-
     public Wave() {
         waveNumber = 1;
         waveMultiplier = 5;
@@ -24,9 +22,7 @@ public class Wave {
 
     //Functions
     public void update() {
-        if (GamePanel.enemies.isEmpty() && waveTimer == 0) {
-            waveTimer = System.nanoTime();
-        }
+        if (GamePanel.enemies.isEmpty() && waveTimer == 0) waveTimer = System.nanoTime();
         if(waveTimer > 0){
             waveTimerDiff += (System.nanoTime() - waveTimer)/1_000_000;
             waveTimer = System.nanoTime();
@@ -38,17 +34,20 @@ public class Wave {
         }
     }
 
-    public boolean showWave(){
-        return waveTimer != 0 ? true : false;
-    }
+    public boolean showWave() {return waveTimer != 0 ? true : false;}
 
     private void createEnemies() {
-        int enemyCount = (waveNumber * waveNumber) * waveMultiplier;
+        int enemyCount = 10 + (waveNumber) * waveMultiplier;
+        Random randomRank = new Random(25);
         while (enemyCount > 0){
-            int rank = new Random().nextInt(4) +1;
+            int rank;
             int type = 1;
+            if (randomRank.nextInt(100) <50) rank = 1;
+            else if (randomRank.nextInt(100) <75) rank = 2;
+            else if (randomRank.nextInt(100) <90) rank = 3;
+            else rank = 4;
             GamePanel.enemies.add(new Enemy(type,rank));
-            enemyCount -= type * rank;
+            enemyCount --;
         }
         waveNumber ++;
     }
@@ -65,6 +64,4 @@ public class Wave {
         long length = (int)g.getFontMetrics().getStringBounds(s, g).getWidth();
         g.drawString(s, GamePanel.WIDTH/2 - length/2, GamePanel.HEIGHT/2);
     }
-
-
 }
