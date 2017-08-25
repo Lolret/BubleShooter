@@ -6,6 +6,13 @@ public class Player {
     public static double speed;
     public static double speedBoostValue;
 
+    public static boolean up;
+    public static boolean down;
+    public static boolean left;
+    public static boolean right;
+    public static boolean isSpeedUp;
+    public static boolean isFiring;
+
     private double x;
     private double y;
     private int playerRadius;
@@ -17,17 +24,10 @@ public class Player {
     private Color color1;
     private Color color2;
 
-    public static boolean up;
-    public static boolean down;
-    public static boolean left;
-    public static boolean right;
-    public static boolean isSpeedUp;
-    public static boolean isFiring;
-
     //Constructor
-    public Player(/*double x, double y, int playerRadius, Color color1, Color color2*/) {
+    public Player() {
         x = GamePanel.WIDTH/2;
-        y = GamePanel.HEIGHT/2;
+        y = GamePanel.HEIGHT/2 +50;
         playerRadius = 8;
         health = 50;
         speed = 2.2;
@@ -39,18 +39,14 @@ public class Player {
         boostFuel = 200;
         maxBoostFuel = 200;
     }
+
     //Functions
     public double getX() {return x;}
-    public double getY() {
-        return y;
-    }
-    public int getPlayerRadius(){
-        return playerRadius;
-    }
+    public double getY() {return y;}
+    public int getPlayerRadius() {return playerRadius;}
     public int getHealth() {return health;}
     public int getBoostFuel() {return boostFuel;}
     public int getMaxBoostFuel() {return maxBoostFuel;}
-
     public int hit() {return --health;}
 
     public void update(){

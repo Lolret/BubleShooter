@@ -18,7 +18,6 @@ public class Enemy {
     public Enemy(int enemyType, int enemyRank) {
         this.enemyType = enemyType;
         this.enemyRank = enemyRank;
-
         switch (this.enemyType){
             case 1:
                 switch (this.enemyRank){
