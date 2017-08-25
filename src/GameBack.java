@@ -17,8 +17,8 @@ public class GameBack {
         g.setColor(color);
         g.fillRect(0,0, GamePanel.WIDTH, GamePanel.HEIGHT);
         g.setColor(Color.WHITE);
-        g.drawString(Integer.toString(GamePanel.score), 10, 10);
-        g.drawString(Integer.toString(GamePanel.player.getHealth()), 60, 10);
+        g.drawString(Integer.toString(GamePanel.score), 10, 20);
+        g.drawString(Integer.toString(GamePanel.player.getHealth()), 60, 20);
     }
 
 }

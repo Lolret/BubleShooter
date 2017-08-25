@@ -53,7 +53,6 @@ public class GamePanel extends JPanel implements Runnable{
         enemies = new ArrayList<>();
         wave = new Wave();
 
-        for (int i=0; i< 10; i ++) enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
         startTime = System.currentTimeMillis();
         while (true){
             //TODO States
@@ -112,11 +111,6 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
         }
-
-        if ((int)(System.currentTimeMillis() - startTime) / 5000 > 0) {
-            enemies.add(new Enemy(1, 1 + (int) (Math.random() * 4)));
-            startTime = System.currentTimeMillis();
-        }
         wave.update();
     }
 
@@ -130,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable{
         for (Enemy e:enemies){
             e.draw(g);
         }
-        wave.draw(g);
+        if (wave.showWave()) wave.draw(g);
     }
 
     private void gameDraw(){

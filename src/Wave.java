@@ -1,10 +1,11 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Wave {
 
     //Fields
     private int waveNumber;
-
+    private int waveMultiplier;
     private long waveTimer;
     private long waveDelay;
     private long waveTimerDiff;
@@ -13,11 +14,12 @@ public class Wave {
     //Constructor
 
     public Wave() {
-        this.waveNumber = waveNumber;
-        this.waveTimer = 0;
-        this.waveDelay = 10_000;
-        this.waveTimerDiff = 0;
-        waveText = "W A V E " + waveNumber;
+        waveNumber = 1;
+        waveMultiplier = 5;
+        waveTimer = 0;
+        waveDelay = 2_000;
+        waveTimerDiff = 0;
+        waveText = "W A V E";
     }
 
     //Functions
@@ -29,11 +31,40 @@ public class Wave {
             waveTimerDiff += (System.nanoTime() - waveTimer)/1_000_000;
             waveTimer = System.nanoTime();
         }
+        if (waveTimerDiff > waveDelay){
+            createEnemies();
+            waveTimer = 0;
+            waveTimerDiff = 0;
+        }
     }
 
+    public boolean showWave(){
+        return waveTimer != 0 ? true : false;
+    }
+
+    private void createEnemies() {
+        int enemyCount = (waveNumber * waveNumber) * waveMultiplier;
+        while (enemyCount > 0){
+            int rank = new Random().nextInt(4) +1;
+            System.out.println(rank);
+            int type = 1;
+            GamePanel.enemies.add(new Enemy(type,rank));
+            enemyCount -= type * rank;
+        }
+        waveNumber ++;
+    }
 
     public void draw(Graphics2D g) {
-        g.drawString(waveText, GamePanel.WIDTH/2, GamePanel.HEIGHT/2);
+        double divider = waveDelay/180;
+        double alpha = waveTimerDiff/divider;
+        alpha = 255 * Math.sin(Math.toRadians(alpha));
+        if (alpha < 0) alpha = 0;
+        if (alpha > 255) alpha = 255;
+        g.setFont(new Font("consolas", Font.BOLD, 20));
+        g.setColor(new Color(255,255,255, (int)alpha));
+        String s = new StringBuffer().append(waveText).append(" ").append(waveNumber).toString();
+        long length = (int)g.getFontMetrics().getStringBounds(s, g).getWidth();
+        g.drawString(s, GamePanel.WIDTH/2 - length/2, GamePanel.HEIGHT/2);
     }
 
 

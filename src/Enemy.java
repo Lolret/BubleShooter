@@ -43,7 +43,7 @@ public class Enemy {
                         enemyColor = Color.ORANGE.darker();
                         x = Math.random() * GamePanel.WIDTH;
                         y = 0;
-                        speed = 4;
+                        speed = 1.5;
                         enemyRadius = 10;
                         enemyHealth = 5;
                         double angle = Math.toRadians(Math.random() * 360);
