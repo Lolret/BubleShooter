@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Random;
 
 public class Enemy {
     //Fields
@@ -85,6 +84,7 @@ public class Enemy {
     //Functions
     public void hit(){
         enemyHealth--;
+        if (enemyHealth <= 0) remove();
     }
 
     public void update(){
@@ -106,7 +106,8 @@ public class Enemy {
         g.drawOval((int)x-enemyRadius, (int)y - enemyRadius, enemyRadius*2, enemyRadius*2);
         g.setStroke(new BasicStroke(1));
     }
-    public boolean remove(){
-        return enemyHealth <= 0;
+    private void remove(){
+        GamePanel.score += (int) (getRadius());
+        GamePanel.enemies.remove(this);
     }
 }

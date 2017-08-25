@@ -16,6 +16,7 @@ public class Player {
     private int playerRadius;
     public static double speed;
     public static double speedBoostValue;
+    private int health;
 
     private double dx; //Коэффициент смещения
     private double dy;
@@ -33,12 +34,11 @@ public class Player {
 
 
     //Constructor
-
-
     public Player(/*double x, double y, int playerRadius, Color color1, Color color2*/) {
         x = GamePanel.WIDTH/2;
         y = GamePanel.HEIGHT/2;
         playerRadius = 8;
+        health = 50;
         speed = 2.2;
         dx = dy = 0;
         speedBoostValue = 1.5;
@@ -48,6 +48,19 @@ public class Player {
     }
 
     //Functions
+    public int getPlayerRadius(){
+        return playerRadius;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int hit() {
+        return --health;
+    }
+
+
     public void update(){
         if (speedUp) {
             if (up && y > playerRadius) {

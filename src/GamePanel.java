@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     Listeners listeners =  new Listeners();
     long startTime = System.currentTimeMillis();
     public static int score;
+    public static Wave wave;
 
     //Constructor
     public GamePanel(){
@@ -43,7 +44,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run(){
-
         image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D)image.getGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -51,12 +51,10 @@ public class GamePanel extends JPanel implements Runnable{
         player = new Player();
         bullets = new ArrayList<>();
         enemies = new ArrayList<>();
+        wave = new Wave();
+
         for (int i=0; i< 10; i ++) enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
         startTime = System.currentTimeMillis();
-
-
-
-
         while (true){
             //TODO States
             gameUpdate();
@@ -84,35 +82,42 @@ public class GamePanel extends JPanel implements Runnable{
         //Enemies update
         for (Enemy e: new ArrayList<>(enemies)) {
             e.update();
-            if (e.remove()) bullets.remove(e);
         }
-        //Bullets-enemies collide
-        for (Enemy e: new ArrayList<>(enemies)){
+        //Bullets-enemies;enemies-player collides
+        for (Enemy e: new ArrayList<>(enemies)) {
             double ex = e.getX();
             double ey = e.getY();
-
-            for (Bullet b: new ArrayList<>(bullets)){
+            //Bullets-enemies collide
+            for (Bullet b : new ArrayList<>(bullets)) {
                 double bx = b.getX();
                 double by = b.getY();
                 double dx = ex - bx;
                 double dy = ey - by;
                 double dist = Math.sqrt(dx * dx + dy * dy);
-                if ((int)dist < b.getRadius()+ e.getRadius()){
+                if ((int) dist <= b.getRadius() + e.getRadius()) {
                     e.hit();
                     bullets.remove(b);
                 }
             }
-            if (e.remove()) {
-                score += (int)(e.getRadius());
-                enemies.remove(e);
-
-                enemies.add(new Enemy(1,1 + (int)(Math.random()*4)));
+            //enemies-player collide
+            double px = player.getX();
+            double py = player.getY();
+            double dx = ex - px;
+            double dy = ey - py;
+            double dist = Math.sqrt(dx * dx + dy * dy);
+            if ((int) dist <= player.getPlayerRadius() + e.getRadius()) {
+                e.hit();
+                player.hit();
+                if (player.getHealth() <= 0) {}//TODO GameOver
             }
+
         }
+
         if ((int)(System.currentTimeMillis() - startTime) / 5000 > 0) {
             enemies.add(new Enemy(1, 1 + (int) (Math.random() * 4)));
             startTime = System.currentTimeMillis();
         }
+        wave.update();
     }
 
     public void gameRender(){
@@ -125,6 +130,7 @@ public class GamePanel extends JPanel implements Runnable{
         for (Enemy e:enemies){
             e.draw(g);
         }
+        wave.draw(g);
     }
 
     private void gameDraw(){
@@ -132,5 +138,4 @@ public class GamePanel extends JPanel implements Runnable{
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
     }
-
 }
