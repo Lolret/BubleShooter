@@ -26,12 +26,20 @@ public class Bullet {
         this.y = GamePanel.player.getY();
         this.r = 3;
         switch (colorMultiplyer % 3){
-            case 1: color = new Color(colorNumber += 0x00FF00/2);
-            case 2: color = new Color(colorNumber += 0x0000FF/2);
-            case 3: color = new Color(colorNumber += 0xFF0000/2);
+            case 1: {
+                color = new Color(colorNumber += 0xFF0000/3);
+            break;
+            }
+            case 2: {
+                color = new Color(colorNumber += 0x00FF00/3);
+                break;
+            }
+            case 3: {
+                color = new Color(colorNumber += 0x0000FF/3);
+                break;
+            }
         }
         colorMultiplyer++;
-//        color = new Color(0x76B219);
         this.speed = 7.5+ Math.random()*0.5;
         lastBulletTime = System.currentTimeMillis();
 
