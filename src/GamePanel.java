@@ -13,6 +13,12 @@ public class GamePanel extends JPanel implements Runnable{
     private BufferedImage image; //Переменная холста, на котором будем рисовать
     private Graphics2D g; //Наша кисточка (oO)
 
+    private int FPS;
+    private double millisToFPS;
+    private long timerFPS;
+    private int sleepTime;
+
+
     public static GameBack background;
     public static Player player;
     public static ArrayList<Bullet> bullets;
@@ -43,6 +49,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run(){
+        FPS = 30;
+        millisToFPS = 1_000/FPS;
+
         image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D)image.getGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -53,13 +62,21 @@ public class GamePanel extends JPanel implements Runnable{
         wave = new Wave();
         startTime = System.currentTimeMillis();
         while (true && player.getHealth() > 0){
-            //TODO States
             gameUpdate();
             gameRender();
             gameDraw();
+
+            timerFPS = System.nanoTime();
+            timerFPS = (System.nanoTime() - timerFPS)/1_000_000;
+            if (millisToFPS > timerFPS) {
+                sleepTime = (int)(millisToFPS - timerFPS);
+            } else sleepTime = 1;
             try {
-                tread.sleep(20); //TODO FPS
+                tread.sleep(sleepTime);
+                System.out.println(sleepTime);
             } catch (InterruptedException e) {e.printStackTrace();}
+            timerFPS = 0;
+            sleepTime = 1;
         }
     }
 
