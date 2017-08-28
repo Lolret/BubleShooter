@@ -9,7 +9,12 @@ public class GamePanel extends JPanel implements Runnable{
     //Fields
     public static int WIDTH = 400;
     public static int HEIGHT = 400;
+
+    public static int mouseX;
+    public static int mouseY;
+
     private Thread tread;
+
     private BufferedImage image; //Переменная холста, на котором будем рисовать
     private Graphics2D g; //Наша кисточка (oO)
 
@@ -18,6 +23,12 @@ public class GamePanel extends JPanel implements Runnable{
     private long timerFPS;
     private int sleepTime;
 
+    public static enum STATES {
+        MENUE,
+        PLAY
+    }
+
+    public static STATES state = STATES.MENUE;
 
     public static GameBack background;
     public static Player player;
@@ -25,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static ArrayList<Enemy> enemies;
     public static int score;
     public static Wave wave;
+    public static Menue menue;
 
     long startTime = System.currentTimeMillis();
     private Color BACKGROUND_COLOR = new Color(0x3A46A7);
@@ -39,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
         requestFocus();
         addKeyListener(listeners);
         addMouseListener(listeners);
+        addMouseMotionListener(listeners);
     }
 
     //Functions
@@ -61,11 +74,21 @@ public class GamePanel extends JPanel implements Runnable{
         enemies = new ArrayList<>();
         wave = new Wave();
         startTime = System.currentTimeMillis();
+        menue = new Menue();
         while (true && player.getHealth() > 0){
-            gameUpdate();
-            gameRender();
-            gameDraw();
-
+            if (state.equals(STATES.MENUE)){
+                //TODO menu
+                background.update();
+                background.draw(g);
+                menue.update();
+                menue.draw(g);
+                gameDraw();
+            }
+            if (state.equals(STATES.PLAY)) {
+                gameUpdate();
+                gameRender();
+                gameDraw();
+            }
             timerFPS = System.nanoTime();
             timerFPS = (System.nanoTime() - timerFPS)/1_000_000;
             if (millisToFPS > timerFPS) {
@@ -73,7 +96,6 @@ public class GamePanel extends JPanel implements Runnable{
             } else sleepTime = 1;
             try {
                 tread.sleep(sleepTime);
-                System.out.println(sleepTime);
             } catch (InterruptedException e) {e.printStackTrace();}
             timerFPS = 0;
             sleepTime = 1;

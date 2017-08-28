@@ -1,6 +1,6 @@
 import java.awt.event.KeyListener;
 import java.awt.event.*;
-public class Listeners implements KeyListener, MouseListener {
+public class Listeners implements KeyListener, MouseListener, MouseMotionListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -26,7 +26,9 @@ public class Listeners implements KeyListener, MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         int key = e.getButton();
-        if (key  == MouseEvent.BUTTON1) Player.isFiring = true;
+        if (key  == MouseEvent.BUTTON1)
+            Player.isFiring = true;
+
     }
 
     @Override
@@ -43,4 +45,18 @@ public class Listeners implements KeyListener, MouseListener {
     public void keyTyped(KeyEvent e) { }
     @Override
     public void mouseClicked(MouseEvent e) {}
+
+
+    //MouseMotionListeners
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        GamePanel.mouseX = e.getX();
+        GamePanel.mouseY = e.getY();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        GamePanel.mouseX = e.getX();
+        GamePanel.mouseY = e.getY();
+    }
 }
