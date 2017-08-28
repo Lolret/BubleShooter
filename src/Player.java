@@ -75,7 +75,7 @@ public class Player {
         x += dx;
         dx = dy = 0;
         if (isFiring && System.currentTimeMillis() -Bullet.lastBulletTime > Bullet.bulletFireDelay){
-            GamePanel.bullets.add(new Bullet(GamePanel.mouseX, GamePanel.mouseY));
+            GamePanel.bullets.add(new Bullet());
         }
         if (!isSpeedUp && boostFuel < maxBoostFuel)  boostFuel++;
     }

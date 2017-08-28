@@ -1,8 +1,26 @@
 import javax.swing.*;
-import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import sun.audio.*;
 
 public class GameStart {
     public static void main(String[] args) {
+        //Music
+        AudioPlayer MGP = AudioPlayer.player;
+        try {
+            InputStream is =  new FileInputStream(new File("C:\\Users\\alexv\\IdeaProjects\\BubleShooter\\src\\erasure.wav"));
+            AudioStream as = new AudioStream(is);
+            AudioPlayer.player.start(as);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
         GamePanel panel = new GamePanel();
         /*Создание фрейма игры*/
         JFrame startFrame = new JFrame("BubleShooter");

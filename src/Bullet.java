@@ -7,7 +7,10 @@ public class Bullet {
     //Fields
     static int bulletFireDelay = 10;
     static long lastBulletTime;
-    public static Color color;
+    public static int colorNumber = 0xFF0000;
+    public Color color = new Color(colorNumber);
+    public static short colorMultiplyer;
+
 
     private int r;
     private double x;
@@ -18,11 +21,17 @@ public class Bullet {
     int dist;
 
     //Constructor
-    public Bullet(int mouseX, int mouseY) {
+    public Bullet() {
         this.x = GamePanel.player.getX();
         this.y = GamePanel.player.getY();
         this.r = 3;
-        this.color = new Color(0x76B219);
+        switch (colorMultiplyer % 3){
+            case 1: color = new Color(colorNumber += 0x00FF00/2);
+            case 2: color = new Color(colorNumber += 0x0000FF/2);
+            case 3: color = new Color(colorNumber += 0xFF0000/2);
+        }
+        colorMultiplyer++;
+//        color = new Color(0x76B219);
         this.speed = 7.5+ Math.random()*0.5;
         lastBulletTime = System.currentTimeMillis();
 
