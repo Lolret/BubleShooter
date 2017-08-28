@@ -10,6 +10,7 @@ public class Listeners implements KeyListener, MouseListener, MouseMotionListene
         if (key  == KeyEvent.VK_D) Player.right = true;
         if (key  == KeyEvent.VK_SPACE) Player.isSpeedUp = true;
         if (key  == KeyEvent.VK_E) Player.isFiring = true;
+        if (key  == KeyEvent.VK_ESCAPE) GamePanel.state = GamePanel.STATES.MENUE;
     }
 
     @Override

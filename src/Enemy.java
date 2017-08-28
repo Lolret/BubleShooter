@@ -102,8 +102,8 @@ public class Enemy {
         g.setStroke(new BasicStroke(1));
         g.setColor(Color.WHITE);
         g.setFont(new Font("consolas", Font.BOLD, 20));
-        g.drawString(Integer.toString(GamePanel.score), GamePanel.WIDTH - 50, 20);
-        g.drawString(Integer.toString(GamePanel.player.getHealth()), 60, 20);
+        g.drawString("Счет: " + Integer.toString(GamePanel.score), GamePanel.WIDTH /2 + 60, 20);
+        g.drawString("Здоровье:" +Integer.toString(GamePanel.player.getHealth()), 10, 20);
     }
 
     private void remove(){

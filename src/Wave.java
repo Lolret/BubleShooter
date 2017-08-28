@@ -15,7 +15,7 @@ public class Wave {
         waveNumber = 1;
         waveMultiplier = 5;
         waveTimer = 0;
-        waveDelay = 2_000;
+        waveDelay = 1_000;
         waveTimerDiff = 0;
         waveText = "W A V E";
     }
@@ -48,6 +48,7 @@ public class Wave {
             else rank = 4;
             GamePanel.enemies.add(new Enemy(type,rank));
             enemyCount --;
+
         }
         waveNumber ++;
     }

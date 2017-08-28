@@ -21,13 +21,12 @@ public class Menue {
     //Functions
     public void update(){
         if (GamePanel.mouseX >  GamePanel.WIDTH/2 - buttonWidth/2 &&
-                GamePanel.mouseX < GamePanel.WIDTH + buttonWidth/2 &&
-                GamePanel.mouseY > GamePanel.HEIGHT/2 - buttonHeight/2 &&
-                GamePanel.mouseY <  GamePanel.HEIGHT/2 + buttonHeight/2){
+            GamePanel.mouseX < GamePanel.WIDTH + buttonWidth/2 &&
+            GamePanel.mouseY > GamePanel.HEIGHT/2 - buttonHeight/2 &&
+            GamePanel.mouseY <  GamePanel.HEIGHT/2 + buttonHeight/2  ){
                 alpha = 60;
                 if (GamePanel.player.isFiring == true) GamePanel.state = GamePanel.STATES.PLAY;
         } else alpha = 0;
-
     }
 
     public void draw(Graphics2D g){

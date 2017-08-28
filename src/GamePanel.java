@@ -25,7 +25,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static enum STATES {
         MENUE,
-        PLAY
+        PLAY,
+        GAME_OVER
     }
 
     public static STATES state = STATES.MENUE;
@@ -135,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable{
             if ((int) dist <= player.getPlayerRadius() + e.getRadius()) {
                 e.hit();
                 player.hit();
-                if (player.getHealth() <= 0) {}//TODO GameOver
+                if (player.getHealth() <= 0) {} //TODO GameOver
             }
         }
         wave.update();

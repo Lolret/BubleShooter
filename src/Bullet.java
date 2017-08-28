@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -5,28 +7,38 @@ public class Bullet {
     //Fields
     static int bulletFireDelay = 10;
     static long lastBulletTime;
+    public static Color color;
 
     private int r;
     private double x;
     private double y;
     private double speed;
-    private Color color;
+    double dx;
+    double dy;
+    int dist;
 
     //Constructor
-    public Bullet() {
+    public Bullet(int mouseX, int mouseY) {
         this.x = GamePanel.player.getX();
         this.y = GamePanel.player.getY();
         this.r = 3;
         this.color = new Color(0x76B219);
-        this.speed = 5.5+ Math.random()*0.5;
+        this.speed = 7.5+ Math.random()*0.5;
         lastBulletTime = System.currentTimeMillis();
+
+        dx = GamePanel.player.getX() - GamePanel.mouseX;
+        dy = GamePanel.player.getY() - GamePanel.mouseY;
+        dist = (int)Math.sqrt(dx * dx + dy * dy);
     }
 
     //Functions
     public double getX() {return x;}
     public double getY() {return y;}
     public double getRadius() {return r;}
-    public void update() {y -=speed;}
+    public void update() {
+        y -= dy/dist * speed;
+        x -= dx/dist * speed ;
+    }
     public boolean remove() {return y < 0;}
 
     public void draw(Graphics2D g){
